@@ -8,6 +8,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Vtex.Api.Context;
     using Newtonsoft.Json;
+    using PackingOptimization.Models;
     using CromulentBisgetti.ContainerPacking;
     using CromulentBisgetti.ContainerPacking.Entities;
     using CromulentBisgetti.ContainerPacking.Algorithms;
@@ -19,25 +20,15 @@
         {
         }
 
-        public string test()
+        public async Task<IActionResult> pack()
         {
-            return "string";
-        }
+            var bodyAsText = await new System.IO.StreamReader(HttpContext.Request.Body).ReadToEndAsync();
+            ContainerPackingRequest packingRequest = JsonConvert.DeserializeObject<ContainerPackingRequest>(bodyAsText);
 
-        public string pack()
-        {
-            List<Container> containers = new List<Container>();
-            containers.Add(new Container(1, 2, 2, 3));
+            Console.WriteLine(JsonConvert.SerializeObject(packingRequest));
 
-            List<Item> itemsToPack = new List<Item>();
-            itemsToPack.Add(new Item(1, 2, 2, 2, 2));
-
-            List<int> algorithms = new List<int>();
-            algorithms.Add((int)AlgorithmType.EB_AFIT);
-
-            List<ContainerPackingResult> result = PackingService.Pack(containers, itemsToPack, algorithms);
-            Console.WriteLine(JsonConvert.SerializeObject(result));
-            return JsonConvert.SerializeObject(result);
+            List<ContainerPackingResult> result = PackingService.Pack(packingRequest.Containers, packingRequest.ItemsToPack, packingRequest.AlgorithmTypeIDs);
+            return Json(result);
         }
     }
 }

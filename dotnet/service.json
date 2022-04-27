@@ -6,10 +6,6 @@
   "runtimeArgs": [
   ],
   "routes": {
-    "test": {
-      "path": "/test",
-      "public": true
-    },
     "pack": {
       "path": "/pack",
       "public": true
