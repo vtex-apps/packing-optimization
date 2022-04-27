@@ -1,0 +1,20 @@
+{
+  "stack": "dotnet",
+  "memory": 256,
+  "timeout": 30,
+  "ttl": 30,
+  "runtimeArgs": [
+  ],
+  "routes": {
+    "test": {
+      "path": "/test",
+      "public": true
+    }
+  },
+  "events": {
+    "onAppsLinked": {
+      "sender": "apps",
+      "keys": ["linked"]
+    }
+  }
+}
