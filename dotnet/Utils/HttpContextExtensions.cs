@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Http;
 
-namespace GettingStarted.Utils
+namespace PackingOptimization.Utils
 {
     public static class HttpContextExtensions
     {
