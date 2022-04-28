@@ -8,7 +8,13 @@
   "routes": {
     "pack": {
       "path": "/pack",
-      "public": true
+      "public": false,
+      "policies": [
+        {
+          "effect": "allow",
+          "actions": ["post"]
+        }
+      ]
     }
   },
   "events": {
