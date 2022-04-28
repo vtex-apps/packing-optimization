@@ -25,8 +25,6 @@
             var bodyAsText = await new System.IO.StreamReader(HttpContext.Request.Body).ReadToEndAsync();
             ContainerPackingRequest packingRequest = JsonConvert.DeserializeObject<ContainerPackingRequest>(bodyAsText);
 
-            Console.WriteLine(JsonConvert.SerializeObject(packingRequest));
-
             List<ContainerPackingResult> result = PackingService.Pack(packingRequest.Containers, packingRequest.ItemsToPack, packingRequest.AlgorithmTypeIDs);
             return Json(result);
         }
