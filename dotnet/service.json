@@ -6,13 +6,25 @@
   "runtimeArgs": [
   ],
   "routes": {
-    "test": {
-      "path": "/test",
-      "public": true
-    },
     "pack": {
       "path": "/pack",
-      "public": true
+      "public": false,
+      "policies": [
+        {
+          "effect": "allow",
+          "actions": ["post"]
+        }
+      ]
+    },
+    "multiPack": {
+      "path": "/multiPack",
+      "public": false,
+      "policies": [
+        {
+          "effect": "allow",
+          "actions": ["post"]
+        }
+      ]
     }
   },
   "events": {

@@ -8,6 +8,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Vtex.Api.Context;
     using Newtonsoft.Json;
+    using PackingOptimization.Models;
     using CromulentBisgetti.ContainerPacking;
     using CromulentBisgetti.ContainerPacking.Entities;
     using CromulentBisgetti.ContainerPacking.Algorithms;
@@ -19,25 +20,31 @@
         {
         }
 
-        public string test()
+        public async Task<IActionResult> pack()
         {
-            return "string";
+            var bodyAsText = await new System.IO.StreamReader(HttpContext.Request.Body).ReadToEndAsync();
+            BasicContainerPackingRequest packingRequest = JsonConvert.DeserializeObject<BasicContainerPackingRequest>(bodyAsText);
+
+            List<int> algoTypeID = new List<int>();
+            algoTypeID.Add(1);
+
+            List<ContainerPackingResult> result = PackingService.Pack(packingRequest.Containers, packingRequest.ItemsToPack, algoTypeID);
+            return Json(result);
         }
 
-        public string pack()
+        public async Task<IActionResult> multiPack()
         {
-            List<Container> containers = new List<Container>();
-            containers.Add(new Container(1, 2, 2, 3));
+            var bodyAsText = await new System.IO.StreamReader(HttpContext.Request.Body).ReadToEndAsync();
+            List<BasicContainerPackingRequest> packingRequestList = JsonConvert.DeserializeObject<List<BasicContainerPackingRequest>>(bodyAsText);
+            List<int> algoTypeID = new List<int>();
+            algoTypeID.Add(1);
+            List<List<ContainerPackingResult>> resultList = new List<List<ContainerPackingResult>>();
 
-            List<Item> itemsToPack = new List<Item>();
-            itemsToPack.Add(new Item(1, 2, 2, 2, 2));
+            foreach (BasicContainerPackingRequest packingRequest in packingRequestList) {
+                resultList.Add(PackingService.Pack(packingRequest.Containers, packingRequest.ItemsToPack, algoTypeID));
+            }
 
-            List<int> algorithms = new List<int>();
-            algorithms.Add((int)AlgorithmType.EB_AFIT);
-
-            List<ContainerPackingResult> result = PackingService.Pack(containers, itemsToPack, algorithms);
-            Console.WriteLine(JsonConvert.SerializeObject(result));
-            return JsonConvert.SerializeObject(result);
+            return Json(resultList);
         }
     }
 }
