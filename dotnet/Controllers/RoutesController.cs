@@ -23,10 +23,28 @@
         public async Task<IActionResult> pack()
         {
             var bodyAsText = await new System.IO.StreamReader(HttpContext.Request.Body).ReadToEndAsync();
-            ContainerPackingRequest packingRequest = JsonConvert.DeserializeObject<ContainerPackingRequest>(bodyAsText);
+            BasicContainerPackingRequest packingRequest = JsonConvert.DeserializeObject<BasicContainerPackingRequest>(bodyAsText);
 
-            List<ContainerPackingResult> result = PackingService.Pack(packingRequest.Containers, packingRequest.ItemsToPack, packingRequest.AlgorithmTypeIDs);
+            List<int> algoTypeID = new List<int>();
+            algoTypeID.Add(1);
+
+            List<ContainerPackingResult> result = PackingService.Pack(packingRequest.Containers, packingRequest.ItemsToPack, algoTypeID);
             return Json(result);
+        }
+
+        public async Task<IActionResult> multiPack()
+        {
+            var bodyAsText = await new System.IO.StreamReader(HttpContext.Request.Body).ReadToEndAsync();
+            List<BasicContainerPackingRequest> packingRequestList = JsonConvert.DeserializeObject<List<BasicContainerPackingRequest>>(bodyAsText);
+            List<int> algoTypeID = new List<int>();
+            algoTypeID.Add(1);
+            List<List<ContainerPackingResult>> resultList = new List<List<ContainerPackingResult>>();
+
+            foreach (BasicContainerPackingRequest packingRequest in packingRequestList) {
+                resultList.Add(PackingService.Pack(packingRequest.Containers, packingRequest.ItemsToPack, algoTypeID));
+            }
+
+            return Json(resultList);
         }
     }
 }

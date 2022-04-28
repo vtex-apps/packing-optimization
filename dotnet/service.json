@@ -15,6 +15,16 @@
           "actions": ["post"]
         }
       ]
+    },
+    "multiPack": {
+      "path": "/multiPack",
+      "public": false,
+      "policies": [
+        {
+          "effect": "allow",
+          "actions": ["post"]
+        }
+      ]
     }
   },
   "events": {

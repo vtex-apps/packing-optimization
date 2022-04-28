@@ -8,4 +8,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-- Added endpoint to work with EB-FIT Packing Algorithm
+- Added endpoint to work with EB-AFIT Packing Algorithm
