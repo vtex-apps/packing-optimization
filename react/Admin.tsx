@@ -1,20 +1,22 @@
-import type { FC } from "react";
-import React from "react";
-import { useIntl } from "react-intl";
+import type { FC } from 'react'
+import React from 'react'
+import { useIntl } from 'react-intl'
 import {
   Page,
   PageHeader,
   PageTitle,
   createSystem,
   ToastProvider,
-} from "@vtex/admin-ui";
+} from '@vtex/admin-ui'
+
+import BoxConfiguration from './components/BoxConfiguration'
 
 const Admin: FC = () => {
   const [ThemeProvider] = createSystem({
-    key: "packing-optimization",
-  });
+    key: 'packing-optimization',
+  })
 
-  const { formatMessage } = useIntl();
+  const { formatMessage } = useIntl()
 
   return (
     <ThemeProvider>
@@ -22,13 +24,14 @@ const Admin: FC = () => {
         <Page className="pa7">
           <PageHeader>
             <PageTitle>
-              {formatMessage({ id: "admin/packing-optimization.title" })}
+              {formatMessage({ id: 'admin/packing-optimization.title' })}
             </PageTitle>
           </PageHeader>
+          <BoxConfiguration />
         </Page>
       </ToastProvider>
     </ThemeProvider>
-  );
-};
+  )
+}
 
-export default Admin;
+export default Admin
