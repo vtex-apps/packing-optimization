@@ -4,9 +4,32 @@
   "version": "0.2.0",
   "title": "Packing Optimization",
   "description": "An app that packages items optimally",
-  "builders": {
-    "graphql": "1.x",
-    "dotnet": "2.x"
+  "scripts": {
+    "prereleasy": "bash pre.sh"
   },
+  "billingOptions": {
+    "type": "free",
+    "availableCountries": ["*"]
+  },
+  "dependencies": {
+    "vtex.styleguide": "9.x",
+    "vtex.apps-graphql": "2.x"
+  },
+  "builders": {
+    "dotnet": "2.x",
+    "messages": "1.x",
+    "admin": "0.x",
+    "react": "3.x",
+    "docs": "0.x",
+    "graphql": "1.x"
+  },
+  "policies": [
+    {
+      "name": "graphql-query"
+    },
+    {
+      "name": "vbase-read-write"
+    }
+  ],
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
 }
