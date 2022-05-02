@@ -9,7 +9,7 @@ import {
   ToastProvider,
 } from '@vtex/admin-ui'
 
-import BoxConfiguration from './components/BoxConfiguration'
+import BoxConfiguration from './components/BoxConfigurations'
 
 const Admin: FC = () => {
   const [ThemeProvider] = createSystem({
