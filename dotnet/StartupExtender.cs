@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using PackingOptimization.Services;
+using PackingOptimization.Data;
 
 namespace Vtex
 {
@@ -19,6 +21,10 @@ namespace Vtex
         // Note that you don't need to call AddControllers() here
         public void ExtendConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IVtexEnvironmentVariableProvider, VtexEnvironmentVariableProvider>();
+            services.AddSingleton<IMerchantSettingsRepository, MerchantSettingsRepository>();
+            services.AddHttpContextAccessor();
+            services.AddHttpClient();
         }
 
         // This method is called inside Startup.Configure() before calling app.UseRouting()

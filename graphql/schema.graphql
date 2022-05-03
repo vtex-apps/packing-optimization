@@ -1,3 +1,28 @@
 type Query {
-  test: String @cacheControl(scope: PRIVATE)
+  getAppSettings: AppSetting @cacheControl(scope: PRIVATE)
 }
+
+type AppSetting {
+  containerList: [Container]
+}
+
+type Container {
+  id: String
+  length: Int
+  width: Int
+  height: Int
+  description: String
+}
+
+# input ContainerInput {
+#   id: String
+#   length: Int
+#   width: Int
+#   height: Int
+#   description: String
+# }
+
+# type Mutation {
+#   addContainer(container: ContainerInput): Boolean
+#     @cacheControl(scope: PRIVATE)
+# }
