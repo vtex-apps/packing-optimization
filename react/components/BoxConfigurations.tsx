@@ -85,7 +85,14 @@ const BoxConfigurations: FC = () => {
         resolver: {
           type: 'plain',
           render: ({ item }) => {
-            return <Button onClick={() => deleteBox(item)}>Delete</Button>
+            return (
+              <Button
+                variant="danger-secondary"
+                onClick={() => deleteBox(item)}
+              >
+                Delete
+              </Button>
+            )
           },
         },
       },
