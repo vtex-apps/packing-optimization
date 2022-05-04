@@ -9,29 +9,32 @@ import {
   Button,
 } from '@vtex/admin-ui'
 import type { FC } from 'react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useQuery, useMutation } from 'react-apollo'
+
+import AppSettings from '../queries/getAppSettings.gql'
+import SaveAppSetting from '../mutations/saveAppSetting.gql'
 
 const BoxConfigurations: FC = () => {
-  const [state, setState] = useState<{
-    containers: Container[]
-  }>({
-    containers: [
-      {
-        height: 6452,
-        width: 6345,
-        length: 654,
-        description: 'hgfdhdf',
-        id: '1',
-      },
-      {
-        height: 3357,
-        width: 76457654,
-        length: 76547645,
-        description: 'gfdgsd',
-        id: '3',
-      },
-    ],
+  const { data } = useQuery(AppSettings, {
+    ssr: false,
   })
+
+  const [saveAppSetting] = useMutation(SaveAppSetting)
+
+  const [state, setState] = useState<{
+    containerList: Container[]
+  }>({
+    containerList: [],
+  })
+
+  useEffect(() => {
+    if (!data?.getAppSettings) return
+
+    const { getAppSettings } = data
+
+    setState({ ...getAppSettings })
+  }, [data])
 
   const [formState, setFormState] = useState<{
     length: string
@@ -45,16 +48,24 @@ const BoxConfigurations: FC = () => {
     description: '',
   })
 
-  const { containers } = state
+  const { containerList } = state
 
   const { length, width, height, description } = formState
 
   const deleteBox = (item: any) => {
-    const newContainerList = containers.filter((container) => {
+    const newContainerList = containerList.filter((container) => {
       return container.id !== item.id
     })
 
-    setState({ ...state, containers: newContainerList })
+    saveAppSetting({
+      variables: {
+        appSetting: {
+          containerList: newContainerList,
+        },
+      },
+    }).then(() => {
+      setState({ ...state, containerList: newContainerList })
+    })
   }
 
   const table = useDataGridState({
@@ -97,7 +108,7 @@ const BoxConfigurations: FC = () => {
         },
       },
     ],
-    items: containers,
+    items: containerList,
   })
 
   const addToTable = () => {
@@ -109,15 +120,23 @@ const BoxConfigurations: FC = () => {
         length: parseInt(length, 10),
         description,
         id: (
-          parseInt(containers[containers.length - 1]?.id ?? '0', 10) + 1
+          parseInt(containerList[containerList.length - 1]?.id ?? '0', 10) + 1
         ).toString(),
       }
 
-      containers.push(newContainer)
+      containerList.push(newContainer)
 
-      setFormState({ length: '', width: '', height: '', description: '' })
+      saveAppSetting({
+        variables: {
+          appSetting: {
+            containerList,
+          },
+        },
+      }).then(() => {
+        setFormState({ length: '', width: '', height: '', description: '' })
 
-      setState({ ...state, containers })
+        setState({ ...state, containerList })
+      })
     }
   }
 

@@ -1,0 +1,11 @@
+query GetAppSettings {
+  getAppSettings {
+    containerList {
+      id
+      length
+      width
+      height
+      description
+    }
+  }
+}
