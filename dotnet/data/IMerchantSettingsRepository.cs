@@ -7,6 +7,6 @@
     {
         Task<MerchantSettings> GetMerchantSettings();
 
-        // Task<bool> SetMerchantSettings(MerchantSettings merchantSettings);
+        Task<bool> SetMerchantSettings(MerchantSettings merchantSettings);
     }
 }

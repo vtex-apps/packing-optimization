@@ -14,15 +14,19 @@ type Container {
   description: String
 }
 
-# input ContainerInput {
-#   id: String
-#   length: Int
-#   width: Int
-#   height: Int
-#   description: String
-# }
+input ContainerInput {
+  id: String
+  length: Int
+  width: Int
+  height: Int
+  description: String
+}
 
-# type Mutation {
-#   addContainer(container: ContainerInput): Boolean
-#     @cacheControl(scope: PRIVATE)
-# }
+input AppSettingsInput {
+  containerList: [ContainerInput]
+}
+
+type Mutation {
+  saveAppSetting(appSetting: AppSettingsInput): Boolean
+    @cacheControl(scope: PRIVATE)
+}

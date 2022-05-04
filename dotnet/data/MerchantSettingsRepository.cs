@@ -62,31 +62,30 @@
             return merchantSettings;
         }
 
-        // public async Task<bool> SetMerchantSettings(MerchantSettings merchantSettings)
-        // {
-        //     Console.WriteLine(JsonConvert.SerializeObject(merchantSettings));
-        //     if (merchantSettings == null)
-        //     {
-        //         merchantSettings = new MerchantSettings();
-        //     }
+        public async Task<bool> SetMerchantSettings(MerchantSettings merchantSettings)
+        {
+            if (merchantSettings == null)
+            {
+                merchantSettings = new MerchantSettings();
+            }
 
-        //     var jsonSerializedMerchantSettings = JsonConvert.SerializeObject(merchantSettings);
-        //     var request = new HttpRequestMessage
-        //     {
-        //         Method = HttpMethod.Put,
-        //         RequestUri = new Uri($"http://vbase.{this._environmentVariableProvider.Region}.vtex.io/{this._httpContextAccessor.HttpContext.Request.Headers[HEADER_VTEX_ACCOUNT]}/{this._httpContextAccessor.HttpContext.Request.Headers[HEADER_VTEX_WORKSPACE]}/buckets/{this._applicationName}/{BUCKET}/files/{SETTINGS_NAME}"),
-        //         Content = new StringContent(jsonSerializedMerchantSettings, Encoding.UTF8, APPLICATION_JSON)
-        //     };
+            var jsonSerializedMerchantSettings = JsonConvert.SerializeObject(merchantSettings);
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Put,
+                RequestUri = new Uri($"http://vbase.{this._environmentVariableProvider.Region}.vtex.io/{this._httpContextAccessor.HttpContext.Request.Headers[HEADER_VTEX_ACCOUNT]}/{this._httpContextAccessor.HttpContext.Request.Headers[HEADER_VTEX_WORKSPACE]}/buckets/{this._applicationName}/{BUCKET}/files/{SETTINGS_NAME}"),
+                Content = new StringContent(jsonSerializedMerchantSettings, Encoding.UTF8, APPLICATION_JSON)
+            };
 
-        //     string authToken = this._httpContextAccessor.HttpContext.Request.Headers[HEADER_VTEX_CREDENTIAL];
-        //     if (authToken != null)
-        //     {
-        //         request.Headers.Add(AUTHORIZATION_HEADER_NAME, authToken);
-        //     }
+            string authToken = this._httpContextAccessor.HttpContext.Request.Headers[HEADER_VTEX_CREDENTIAL];
+            if (authToken != null)
+            {
+                request.Headers.Add(AUTHORIZATION_HEADER_NAME, authToken);
+            }
 
-        //     var client = _clientFactory.CreateClient();
-        //     var response = await client.SendAsync(request);
-        //     return response.IsSuccessStatusCode;
-        // }
+            var client = _clientFactory.CreateClient();
+            var response = await client.SendAsync(request);
+            return response.IsSuccessStatusCode;
+        }
     }
 }
