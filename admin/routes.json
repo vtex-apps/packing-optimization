@@ -1,0 +1,6 @@
+{
+  "admin.app.settings": {
+    "component": "Admin",
+    "path": "/admin/app/packing-optimization"
+  }
+}
