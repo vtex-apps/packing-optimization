@@ -10,14 +10,14 @@ namespace PackingOptimization.Models
 
     public class ContainerObject
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public int Length { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
         public string Description { get; set; }
 
         public ContainerObject() {}
-        public ContainerObject(string Id, int Length, int Width, int Height, string Description) {
+        public ContainerObject(int Id, int Length, int Width, int Height, string Description) {
             this.Id = Id;
             this.Length = Length;
             this.Width = Width;

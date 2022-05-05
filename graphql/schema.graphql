@@ -7,7 +7,7 @@ type AppSetting {
 }
 
 type Container {
-  id: String
+  id: Int
   length: Int
   width: Int
   height: Int
@@ -15,7 +15,7 @@ type Container {
 }
 
 input ContainerInput {
-  id: String
+  id: Int
   length: Int
   width: Int
   height: Int

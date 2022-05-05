@@ -119,9 +119,7 @@ const BoxConfigurations: FC = () => {
         width: parseInt(width, 10),
         length: parseInt(length, 10),
         description,
-        id: (
-          parseInt(containerList[containerList.length - 1]?.id ?? '0', 10) + 1
-        ).toString(),
+        id: (containerList[containerList.length - 1]?.id ?? 0) + 1,
       }
 
       containerList.push(newContainer)

@@ -1,5 +1,5 @@
 interface Container {
-  id: string
+  id: number
   length: number
   width: number
   height: number
