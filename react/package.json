@@ -1,6 +1,6 @@
 {
   "name": "packing-optimization",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "scripts": {
     "test": "vtex-test-tools test",
     "lint": "tsc --noEmit && eslint --ext ts,tsx ."
