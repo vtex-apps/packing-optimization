@@ -10,6 +10,7 @@
     using Newtonsoft.Json;
     using PackingOptimization.Models;
     using PackingOptimization.Data;
+    using PackingOptimization.Services;
     using CromulentBisgetti.ContainerPacking;
     using CromulentBisgetti.ContainerPacking.Entities;
     using CromulentBisgetti.ContainerPacking.Algorithms;
@@ -64,6 +65,23 @@
             }
 
             return Json(resultList);
+        }
+
+        public async Task<IActionResult> packAll()
+        {
+            this._merchantSettings = await _merchantSettingsRepository.GetMerchantSettings();
+
+            List<Container> containerList = new List<Container>();
+            foreach (ContainerObject container in this._merchantSettings.ContainerList) {
+                containerList.Add(new Container(container.Id, container.Length, container.Width, container.Height));
+            }
+
+            var bodyAsText = await new System.IO.StreamReader(HttpContext.Request.Body).ReadToEndAsync();
+            BasicContainerPackingRequest packingRequest = JsonConvert.DeserializeObject<BasicContainerPackingRequest>(bodyAsText);
+
+            List<ContainerPackingResult> multiboxPack = MultiboxPackService.multiboxPack(packingRequest, containerList);
+
+            return Json(multiboxPack);
         }
     }
 }
