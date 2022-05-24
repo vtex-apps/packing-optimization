@@ -81,7 +81,9 @@
 
             List<ContainerPackingResult> multiboxPack = MultiboxPackService.multiboxPack(packingRequest, containerList);
 
-            return Json(multiboxPack);
+            ContainerPackingResponse containerPackingResponse = new ContainerPackingResponse(multiboxPack, containerList);
+
+            return Json(containerPackingResponse);
         }
     }
 }
