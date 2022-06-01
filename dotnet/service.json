@@ -27,7 +27,7 @@
     },
     "packAll": {
       "path": "/packAll",
-      "public": false,
+      "public": true,
       "policies": [
         {
           "effect": "allow",
