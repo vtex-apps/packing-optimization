@@ -1,25 +1,35 @@
+📢 Use this project, [contribute](https://github.com/vtex-apps/packing-optimization) to it or open issues to help evolve it using [Store Discussion](https://github.com/vtex-apps/store-discussion).
 # Packing Optimization
+<!-- DOCS-IGNORE:start -->
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
+<!-- DOCS-IGNORE:end -->
 
-## Functionalities 📦
+The **Packing Optimization** app provides a REST API that, when provided with a list of available shipping box types and a list of items that need to be packed, will return the most optimal way of packing those items (i.e. fitting the items into the smallest possible number of smallest boxes). By using this app and a diverse set of box sizes, users can experience a significant shipping cost savings.
+## Features 📦
 ---
-- Create user defined boxes
-- Pack all request body items optimally into the list of user defined boxes
+- Create and manage a list of available box types
+- Pack all provided items optimally into the available box types
 
-## Configurations ⚙️
+## Installation
+You can install the **Packing Optimization** app by running `vtex install vtex.packing-optimization` in your terminal, using the [VTEX IO CLI](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-vtex-io-cli-installation-and-command-reference).
+
+## Configuration ⚙️
 ---
-### How to *Access* Configurations
-- In the Admin Panel, `Search` for `Packing Optimization`
+### How to *Access* Configuration
+- In the VTEX Admin, `Search` for `Packing Optimization`
 ### How to *Add* and *Remove* Your Own Boxes
-- In the `Packing Optimization` app, input your *box length*, *box width*, and *box height*. Box description is optional and press `Add To Table`. The description is for your own purposes and will not be used by the app.
+- In the `Packing Optimization` admin panel, input your *box length*, *box width*, and *box height*. Box description is optional and for your own reference. After inputting the desired information, press `Add To Table`. Repeat as desired to register all of your box types.
 - To delete a box, simply press `Delete`
 
 ## Apps Using Packing Optimization 🚚
 ---
-- FedEx App currently integrates with the Packing Optimization App. With the packing app and a diverse set of box sizes, users can experience a significant shipping cost saving.
+- [FedEx Shipping](https://github.com/vtex-apps/fedex-shipping)
 
 ## Things to Note
 ---
-> For performance sake, for situations where we need multiple boxes, we're picking the box with the highest **percentItemVolumePacked**; we pick the largest **percentContainerVolumePacked** as a tiebreaker.
+> In situations where the app needs multiple boxes, it will pick the box with the highest **percentItemVolumePacked**. In the case of a tie, it picks the box with the largest **percentContainerVolumePacked**.
 
 > 🧮 After packing, the box weights are calculated using $$Box Weight = \sum_{n=1}^n ItemWeight_n$$ With N denoting item number in box
 
@@ -28,9 +38,9 @@
     2. Width<sub>Item</sub> ≤ Width<sub>Box</sub> \
     3. Height<sub>Item</sub> ≤ Height<sub>Box</sub> 
 
-> ⚠️ Currently, the boxes defined have an infinite quantity.
+> ⚠️ Currently, the app assumes that there is an infinite available quantity of each box type.
 
-> ⚠️ Items that do not fit into any boxes will not be returned. Moreover, there must be at least one box for this app to the utilized.
+> ⚠️ Items that do not fit into any boxes will not be returned. Moreover, at least one box type must be defined for this app to be utilized.
 
 > The box dimensions defined here should be in the same unit of measurement as the items defined in VTEX. For instance, if items are measured in inches, then the box values should also be in inches.
 
