@@ -4,6 +4,7 @@ type Query {
 
 type AppSetting {
   containerList: [Container]
+  accessKey: String
 }
 
 type Container {
@@ -24,6 +25,7 @@ input ContainerInput {
 
 input AppSettingsInput {
   containerList: [ContainerInput]
+  accessKey: String
 }
 
 type Mutation {

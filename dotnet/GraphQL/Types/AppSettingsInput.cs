@@ -13,6 +13,7 @@ namespace PackingOptimization.GraphQL.Types
             Name = "AppSettingsInput";
 
             Field(b => b.ContainerList, type: typeof(ListGraphType<ContainerInput>)).Description("List of Containers");
+            Field(b => b.AccessKey).Description("Access Key");
         }
     }
 }

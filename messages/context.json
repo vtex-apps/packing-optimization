@@ -1,3 +1,5 @@
 {
-  "admin/packing-optimization.title": "admin/packing-optimization.title"
+  "admin/packing-optimization.title": "admin/packing-optimization.title",
+  "admin/packing-optimization.save.success": "admin/packing-optimization.save.success",
+  "admin/packing-optimization.save.fail": "admin/packing-optimization.save.fail"
 }

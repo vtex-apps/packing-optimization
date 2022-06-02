@@ -7,10 +7,13 @@ import {
   Set,
   useDataGridState,
   Button,
+  InputPassword,
+  useToast,
 } from '@vtex/admin-ui'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import { useQuery, useMutation } from 'react-apollo'
+import { useIntl } from 'react-intl'
 
 import AppSettings from '../queries/getAppSettings.gql'
 import SaveAppSetting from '../mutations/saveAppSetting.gql'
@@ -24,9 +27,13 @@ const BoxConfigurations: FC = () => {
 
   const [state, setState] = useState<{
     containerList: Container[]
+    accessKey: string
   }>({
     containerList: [],
+    accessKey: '',
   })
+
+  const { formatMessage } = useIntl()
 
   useEffect(() => {
     if (!data?.getAppSettings) return
@@ -48,7 +55,9 @@ const BoxConfigurations: FC = () => {
     description: '',
   })
 
-  const { containerList } = state
+  const showToast = useToast()
+
+  const { containerList, accessKey } = state
 
   const { length, width, height, description } = formState
 
@@ -61,10 +70,24 @@ const BoxConfigurations: FC = () => {
       variables: {
         appSetting: {
           containerList: newContainerList,
+          accessKey,
         },
       },
-    }).then(() => {
+    }).then((res) => {
       setState({ ...state, containerList: newContainerList })
+      let message = formatMessage({
+        id: 'admin/packing-optimization.save.success',
+      })
+
+      if (!res?.data?.saveAppSetting) {
+        message = formatMessage({
+          id: 'admin/packing-optimization.save.fail',
+        })
+      }
+
+      showToast({
+        message,
+      })
     })
   }
 
@@ -128,18 +151,66 @@ const BoxConfigurations: FC = () => {
         variables: {
           appSetting: {
             containerList,
+            accessKey,
           },
         },
-      }).then(() => {
+      }).then((res) => {
         setFormState({ length: '', width: '', height: '', description: '' })
 
         setState({ ...state, containerList })
+        let message = formatMessage({
+          id: 'admin/packing-optimization.save.success',
+        })
+
+        if (!res?.data?.saveAppSetting) {
+          message = formatMessage({
+            id: 'admin/packing-optimization.save.fail',
+          })
+        }
+
+        showToast({
+          message,
+        })
       })
     }
   }
 
+  const saveKey = () => {
+    saveAppSetting({
+      variables: {
+        appSetting: {
+          containerList,
+          accessKey,
+        },
+      },
+    }).then((res) => {
+      let message = formatMessage({
+        id: 'admin/packing-optimization.save.success',
+      })
+
+      if (!res?.data?.saveAppSetting) {
+        message = formatMessage({
+          id: 'admin/packing-optimization.save.fail',
+        })
+      }
+
+      showToast({
+        message,
+      })
+    })
+  }
+
   return (
     <PageContent>
+      <Set spacing={3}>
+        <InputPassword
+          id="accessKey"
+          label="Access Key"
+          value={accessKey}
+          onChange={(e) => setState({ ...state, accessKey: e.target.value })}
+        />
+        <Button onClick={() => saveKey()}>Save</Button>
+      </Set>
       <Heading className="pt6">Your Boxes</Heading>
       <Set spacing={3}>
         <Input
