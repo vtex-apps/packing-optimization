@@ -8,7 +8,6 @@
 
 The **Packing Optimization** app provides a REST API that, when provided with a list of available shipping box types and a list of items that need to be packed, will return the most optimal way of packing those items (i.e. fitting the items into the smallest possible number of smallest boxes). By using this app and a diverse set of box sizes, users can experience a significant shipping cost savings.
 ## Features 📦
----
 - Create and manage a list of available box types
 - Pack all provided items optimally into the available box types
 
@@ -16,7 +15,6 @@ The **Packing Optimization** app provides a REST API that, when provided with a 
 You can install the **Packing Optimization** app by running `vtex install vtex.packing-optimization` in your terminal, using the [VTEX IO CLI](https://developers.vtex.com/vtex-developer-docs/docs/vtex-io-documentation-vtex-io-cli-installation-and-command-reference).
 
 ## Configuration ⚙️
----
 ### How to *Access* Configuration
 - In the VTEX Admin, `Search` for `Packing Optimization`
 ### How to *Add* and *Remove* Your Own Boxes
@@ -24,11 +22,10 @@ You can install the **Packing Optimization** app by running `vtex install vtex.p
 - To delete a box, simply press `Delete`
 
 ## Apps Using Packing Optimization 🚚
----
 - [FedEx Shipping](https://github.com/vtex-apps/fedex-shipping)
 
 ## Things to Note
----
+
 > In situations where the app needs multiple boxes, it will pick the box with the highest **percentItemVolumePacked**. In the case of a tie, it picks the box with the largest **percentContainerVolumePacked**.
 
 > 🧮 After packing, the box weights are calculated using $$Box Weight = \sum_{n=1}^n ItemWeight_n$$ With N denoting item number in box
@@ -46,7 +43,6 @@ You can install the **Packing Optimization** app by running `vtex install vtex.p
 
 
 ## Endpoints
----
 | Field | Value |
 | --- | ---|
 |URL|/packAll|
@@ -166,7 +162,6 @@ Main Request Object
 ```
 
 ## Credits ✨
----
 > This app integrates: https://github.com/davidmchapman/3DContainerPacking
  
 > Paper on 3D Packing Solution: https://scholar.afit.edu/cgi/viewcontent.cgi?article=5567&context=etd
