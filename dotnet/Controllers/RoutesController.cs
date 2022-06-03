@@ -75,7 +75,7 @@
                 
             string authToken = this._httpContextAccessor.HttpContext.Request.Headers["accesskey"];
 
-            if (authToken !=  this._merchantSettings.AccessKey) {
+            if (!authToken.Equals(this._merchantSettings.AccessKey)) {
                 return Json(new {Error = "Fail to Authenticate"} );
             }
 
