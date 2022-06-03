@@ -17,12 +17,14 @@
 
     public class RoutesController : Controller
     {
-
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IMerchantSettingsRepository _merchantSettingsRepository;
         private MerchantSettings _merchantSettings;
 
-        public RoutesController(IMerchantSettingsRepository merchantSettingsRepository)
+        public RoutesController(IMerchantSettingsRepository merchantSettingsRepository, IHttpContextAccessor httpContextAccessor)
         {
+            this._httpContextAccessor = httpContextAccessor ??
+                            throw new ArgumentNullException(nameof(httpContextAccessor));
             this._merchantSettingsRepository = merchantSettingsRepository ?? throw new ArgumentNullException(nameof(merchantSettingsRepository));
         }
 
@@ -70,6 +72,12 @@
         public async Task<IActionResult> packAll()
         {
             this._merchantSettings = await _merchantSettingsRepository.GetMerchantSettings();
+                
+            string authToken = this._httpContextAccessor.HttpContext.Request.Headers["accesskey"];
+
+            if (!authToken.Equals(this._merchantSettings.AccessKey)) {
+                return Json(new {Error = "Fail to Authenticate"} );
+            }
 
             List<Container> containerList = new List<Container>();
             foreach (ContainerObject container in this._merchantSettings.ContainerList) {

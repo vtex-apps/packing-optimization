@@ -17,6 +17,8 @@ You can install the **Packing Optimization** app by running `vtex install vtex.p
 ## Configuration ⚙️
 ### How to *Access* Configuration
 - In the VTEX Admin, `Search` for `Packing Optimization`
+### Defining Access Key
+- The Access Key is used to access the pack API or connecting it with another app, such as FedEx. You can define an access key and save it by pressing `Save`. If you 
 ### How to *Add* and *Remove* Your Own Boxes
 - In the `Packing Optimization` admin panel, input your *box length*, *box width*, and *box height*. Box description is optional and for your own reference. After inputting the desired information, press `Add To Table`. Repeat as desired to register all of your box types.
 - To delete a box, simply press `Delete`
@@ -47,6 +49,9 @@ You can install the **Packing Optimization** app by running `vtex install vtex.p
 | --- | ---|
 |URL|/packAll|
 |METHOD|POST|
+
+The following headers can be used
+- AccessKey: `Your Access Key`
 
 Request Body Example
 ```json

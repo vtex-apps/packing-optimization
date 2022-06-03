@@ -6,6 +6,7 @@ namespace PackingOptimization.Models
     public class MerchantSettings
     {
         public List<ContainerObject> ContainerList { get; set; } = new List<ContainerObject>();
+        public string AccessKey { get; set; } = "";
     }
 
     public class ContainerObject

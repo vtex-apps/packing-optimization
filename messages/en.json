@@ -1,3 +1,5 @@
 {
-  "admin/packing-optimization.title": "Packing Optimization"
+  "admin/packing-optimization.title": "Packing Optimization",
+  "admin/packing-optimization.save.success": "Successfully Saved",
+  "admin/packing-optimization.save.fail": "Error. Fail to Save"
 }
